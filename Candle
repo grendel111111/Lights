@@ -1,0 +1,73 @@
+main()
+// Modified from a macro by spacemandev
+async function main(){
+  console.log("Hello World")
+  //Is a token selected? If not, error
+  console.log("Tokens: ", canvas.tokens.controlled)
+  if(canvas.tokens.controlled.length == 0 || canvas.tokens.controlled.length > 1){
+    ui.notifications.error("Please select a single token");
+    return;
+  }
+  const actor = canvas.tokens.controlled[0].actor
+
+  //Does the token have a candle? Otherwise error
+  console.log("Actor: ", actor);
+  let candle = actor.items.find(item => item.data.name == "Candle")
+  if(candle == null || candle == undefined) {
+ui.notifications.error("You don't have any candles");
+    return;
+  }
+  
+   //Does the token have a Flint? Otherwise error
+  console.log("Actor: ", actor);
+  let flint = actor.items.find(item => item.data.name == "Flint and Steel")
+  if(flint == null || flint == undefined) {
+ui.notifications.error("You don't have any flint and steel");
+    return;
+  }
+  
+   if (game.modules.get("about-time").active != true) {
+            ui.notifications.error("About Time isn't loaded");
+    return;
+          }
+   //Subtract a torch
+  await candle.update({"data.quantity": candle.data.data.quantity - 1})
+  if(candle.data.data.quantity < 1){
+    candle.delete();
+  }
+  
+  
+await 
+ console.log(token);
+        token.update({
+        dimLight: 3,
+        brightLight:  2,
+        lightAngle: 360,
+        lightAnimation: {type: "torch", speed: 2, intensity: 2},
+        lightColor: "#f8c377",
+        lightAlpha: 0.15
+        });
+        
+        //check if about time is console
+       await
+        game.Gametime.doIn({minutes:59}, () => {
+ChatMessage.create({
+                  user: game.user._id,
+                  content: "Your torch candle to go out.",
+                 speaker: speaker
+                }, {})});  
+                
+       await         
+    game.Gametime.doIn({minutes:60}, () => 
+    token.update({
+        dimLight: 0,
+        brightLight:  0,
+        lightAngle: 360,
+        lightAnimation: {type: "none", speed: 1, intensity: 1},
+        lightColor: "#ffffff",
+        lightAlpha: 1
+        })
+        
+        );
+    
+}
